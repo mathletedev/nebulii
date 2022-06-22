@@ -1,3 +1,5 @@
 useTabs: true
 trailingComma: none
 arrowParens: avoid
+importOrderSeparation: false
+importOrderSortSpecifiers: true
