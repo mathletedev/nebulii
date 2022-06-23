@@ -10,6 +10,12 @@ interface Props {
 const Chat: Component<Props> = props => {
 	const [messages, setMessages] = createSignal<MessageData[]>([]);
 	const [message, setMessage] = createSignal("");
+	let input!: HTMLInputElement;
+
+	document.onkeydown = () => {
+		if (document.activeElement?.tagName === "INPUT") return;
+		input.focus();
+	};
 
 	return (
 		<div class="w-full flex flex-col">
@@ -36,6 +42,7 @@ const Chat: Component<Props> = props => {
 					value={message()}
 					onInput={e => setMessage(e.currentTarget.value)}
 					placeholder="say something..."
+					ref={input}
 				/>
 				<button class="w-10 h-10 bg-blue-900">✈️</button>
 			</form>
