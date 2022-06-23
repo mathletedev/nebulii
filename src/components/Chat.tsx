@@ -3,6 +3,7 @@ import { MessageData } from "../lib/types";
 import Message from "./Message";
 
 interface Props {
+	name: string;
 	messages: MessageData[];
 	sendMessage: (m: string) => void;
 }
@@ -12,7 +13,7 @@ const Chat: Component<Props> = props => {
 
 	return (
 		<div class="w-full flex flex-col">
-			<div class="w-full flex-grow">
+			<div class="w-full p-4 flex-grow overflow-y-scroll">
 				<For each={props.messages}>{m => <Message data={m} />}</For>
 			</div>
 			<form
@@ -24,6 +25,9 @@ const Chat: Component<Props> = props => {
 					setMessage("");
 				}}
 			>
+				<div class="h-10 px-3 flex rounded-lg bg-indigo-900">
+					<div class="m-auto">{props.name}</div>
+				</div>
 				<input
 					class="h-10 p-3 flex-grow rounded-lg"
 					value={message()}

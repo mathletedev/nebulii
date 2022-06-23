@@ -16,10 +16,11 @@ const App: Component = () => {
 			}
 		>
 			<div class="h-full flex">
-				<aside class="w-64 h-full">
+				<aside class="w-64 h-full border-r-4 border-gray-800">
 					<div class="text-2xl text-center">nebulii</div>
 				</aside>
 				<Chat
+					name={name()}
 					messages={messages()}
 					sendMessage={m =>
 						setMessages([...messages(), { author: name(), content: m }])
