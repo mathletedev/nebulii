@@ -3,12 +3,14 @@ env:
   es2021: true
 extends:
   - airbnb-base
+  - airbnb-typescript/base
   - eslint:recommended
   - plugin:solid/typescript
   - prettier
 parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: latest
+  project: tsconfig.json
   sourceType: module
 plugins:
   - prettier
@@ -20,3 +22,8 @@ rules:
     - error
   simple-import-sort/imports: error
   simple-import-sort/exports: error
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .tsx

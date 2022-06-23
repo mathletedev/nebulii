@@ -5,11 +5,10 @@ import Message from "./Message";
 
 interface Props {
 	name: string;
-	messages: MessageData[];
-	sendMessage: (m: string) => void;
 }
 
 const Chat: Component<Props> = props => {
+	const [messages, setMessages] = createSignal<MessageData[]>([]);
 	const [message, setMessage] = createSignal("");
 
 	return (
@@ -18,14 +17,14 @@ const Chat: Component<Props> = props => {
 				<div class="m-auto text-2xl font-cursive">space</div>
 			</div>
 			<div class="w-full p-4 flex-grow overflow-y-scroll">
-				<For each={props.messages}>{m => <Message data={m} />}</For>
+				<For each={messages()}>{m => <Message data={m} />}</For>
 			</div>
 			<form
-				class="w-full px-4 pb-4 flex gap-4"
+				class="w-full p-4 flex gap-4"
 				onSubmit={e => {
 					e.preventDefault();
 					if (message() === "") return;
-					props.sendMessage(message());
+					setMessages(v => [...v, { author: props.name, content: message() }]);
 					setMessage("");
 				}}
 			>
@@ -33,12 +32,12 @@ const Chat: Component<Props> = props => {
 					<div class="m-auto">{props.name}</div>
 				</div>
 				<input
-					class="h-10 p-3 flex-grow rounded-lg"
+					class="h-10 p-3 flex-grow"
 					value={message()}
 					onInput={e => setMessage(e.currentTarget.value)}
 					placeholder="say something..."
 				/>
-				<button class="w-10 h-10 rounded-lg bg-blue-900">✈️</button>
+				<button class="w-10 h-10 bg-blue-900">✈️</button>
 			</form>
 		</div>
 	);

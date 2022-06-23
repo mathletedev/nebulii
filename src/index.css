@@ -4,6 +4,11 @@
 
 input {
 	@apply bg-gray-800;
+	@apply rounded-lg;
+}
+
+button {
+	@apply rounded-lg;
 }
 
 #root {

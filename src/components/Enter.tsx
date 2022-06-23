@@ -19,15 +19,13 @@ const Enter: Component<Props> = props => (
 				}}
 			>
 				<input
-					class="h-12 p-4 rounded-lg text-center"
+					class="h-12 p-4 text-center"
 					value={props.name}
 					onInput={e => props.setName(e.currentTarget.value)}
 					placeholder="name"
 				/>
 				<div class="h-4" />
-				<button class="w-full h-10 rounded-lg text-center bg-blue-900">
-					enter
-				</button>
+				<button class="w-full h-10 text-center bg-blue-900">enter</button>
 			</form>
 		</div>
 	</div>
