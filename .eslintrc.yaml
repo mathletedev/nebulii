@@ -12,8 +12,11 @@ parserOptions:
   sourceType: module
 plugins:
   - prettier
+  - simple-import-sort
   - solid
   - "@typescript-eslint"
 rules:
   prettier/prettier:
     - error
+  simple-import-sort/imports: error
+  simple-import-sort/exports: error

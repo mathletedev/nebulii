@@ -1,6 +1,8 @@
 import { Component, createSignal, Show } from "solid-js";
+
 import Chat from "./components/Chat";
 import Enter from "./components/Enter";
+import Sidebar from "./components/Sidebar";
 import { MessageData } from "./lib/types";
 
 const App: Component = () => {
@@ -16,9 +18,7 @@ const App: Component = () => {
 			}
 		>
 			<div class="h-full flex">
-				<aside class="w-64 h-full border-r-4 border-gray-800">
-					<div class="text-2xl text-center">nebulii</div>
-				</aside>
+				<Sidebar />
 				<Chat
 					name={name()}
 					messages={messages()}

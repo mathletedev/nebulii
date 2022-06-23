@@ -6,6 +6,9 @@ module.exports = {
 			fontFamily: {
 				sans: "Roboto"
 			}
+		},
+		fontFamily: {
+			cursive: "'Dancing Script'"
 		}
 	},
 	plugins: []

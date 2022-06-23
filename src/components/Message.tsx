@@ -1,4 +1,5 @@
 import { Component } from "solid-js";
+
 import { MessageData } from "../lib/types";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const Message: Component<Props> = props => (
-	<div>
+	<div class="max-w-full break-all">
 		{props.data.author}: {props.data.content}
 	</div>
 );

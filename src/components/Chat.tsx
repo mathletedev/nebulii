@@ -1,4 +1,5 @@
 import { Component, createSignal, For } from "solid-js";
+
 import { MessageData } from "../lib/types";
 import Message from "./Message";
 
@@ -13,6 +14,9 @@ const Chat: Component<Props> = props => {
 
 	return (
 		<div class="w-full flex flex-col">
+			<div class="w-full h-12 flex border-b-4 border-gray-800">
+				<div class="m-auto text-2xl font-cursive">space</div>
+			</div>
 			<div class="w-full p-4 flex-grow overflow-y-scroll">
 				<For each={props.messages}>{m => <Message data={m} />}</For>
 			</div>
@@ -25,7 +29,7 @@ const Chat: Component<Props> = props => {
 					setMessage("");
 				}}
 			>
-				<div class="h-10 px-3 flex rounded-lg bg-indigo-900">
+				<div class="h-10 px-3 flex rounded-lg bg-sky-900">
 					<div class="m-auto">{props.name}</div>
 				</div>
 				<input

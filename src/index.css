@@ -11,3 +11,7 @@ input {
 	@apply bg-gray-900;
 	@apply text-gray-200;
 }
+
+.cursive {
+	font-family: "Dancing Script";
+}
