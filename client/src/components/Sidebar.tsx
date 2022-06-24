@@ -3,6 +3,7 @@ import { Component, createSignal, For, Setter } from "solid-js";
 interface Props {
 	spaces: string[];
 	setSpaces: Setter<string[]>;
+	currentSpace: string;
 	setCurrentSpace: Setter<string>;
 }
 
@@ -11,7 +12,11 @@ const Sidebar: Component<Props> = props => {
 
 	return (
 		<aside class="w-64 h-full flex flex-col border-r-4 border-gray-800">
-			<div class="m-4 rounded-lg bg-indigo-900">
+			<div
+				class={`m-4 rounded-lg bg-${
+					props.currentSpace === "core" ? "indigo-900" : "gray-800"
+				}`}
+			>
 				<button
 					class="w-full p-2 text-4xl font-cursive"
 					onClick={() => props.setCurrentSpace("core")}
@@ -23,7 +28,11 @@ const Sidebar: Component<Props> = props => {
 			<div class="flex-grow overflow-y-scroll">
 				<For each={props.spaces}>
 					{s => (
-						<div class="mx-4 mb-4 rounded-lg bg-gray-800">
+						<div
+							class={`mx-4 mb-4 rounded-lg bg-${
+								s === props.currentSpace ? "indigo-900" : "gray-800"
+							}`}
+						>
 							<button
 								onClick={() => props.setCurrentSpace(s)}
 								class="w-full p-2"
@@ -38,7 +47,9 @@ const Sidebar: Component<Props> = props => {
 				onSubmit={e => {
 					e.preventDefault();
 					if (newSpace() === "") return;
-					props.setSpaces(v => [...v, newSpace()]);
+					if (!props.spaces.includes(newSpace()) && newSpace() !== "core")
+						props.setSpaces(v => [...v, newSpace()]);
+					props.setCurrentSpace(newSpace());
 					setNewSpace("");
 				}}
 			>

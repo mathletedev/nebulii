@@ -21,6 +21,7 @@ const App: Component = () => {
 				<Sidebar
 					spaces={spaces()}
 					setSpaces={setSpaces}
+					currentSpace={currentSpace()}
 					setCurrentSpace={setCurrentSpace}
 				/>
 				<Chat name={name()} currentSpace={currentSpace()} />
