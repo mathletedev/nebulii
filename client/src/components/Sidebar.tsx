@@ -5,6 +5,7 @@ interface Props {
 	setSpaces: Setter<string[]>;
 	currentSpace: string;
 	setCurrentSpace: Setter<string>;
+	onlineCount: number;
 }
 
 const Sidebar: Component<Props> = props => {
@@ -65,7 +66,7 @@ const Sidebar: Component<Props> = props => {
 				</div>
 			</form>
 			<div class="m-4 rounded-lg bg-cyan-900">
-				<div class="p-2 text-center">1 online</div>
+				<div class="p-2 text-center">{props.onlineCount} online</div>
 			</div>
 		</aside>
 	);

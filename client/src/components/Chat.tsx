@@ -1,22 +1,18 @@
-import { Component, createEffect, createSignal, For } from "solid-js";
+import { Component, createSignal, For } from "solid-js";
 
+import client from "../lib/client";
 import { MessageData } from "../lib/types";
 import Message from "./Message";
 
 interface Props {
 	name: string;
+	messages: MessageData[];
 	currentSpace: string;
 }
 
 const Chat: Component<Props> = props => {
-	const [messages, setMessages] = createSignal<MessageData[]>([]);
 	const [currentMessage, setCurrentMessage] = createSignal("");
 	let input!: HTMLInputElement;
-
-	createEffect(() => {
-		props.currentSpace;
-		setMessages([]);
-	});
 
 	document.onkeydown = () => {
 		if (document.activeElement?.tagName === "INPUT") return;
@@ -29,17 +25,19 @@ const Chat: Component<Props> = props => {
 				<div class="m-auto text-2xl font-cursive">{props.currentSpace}</div>
 			</div>
 			<div class="w-full p-4 flex-grow overflow-y-scroll">
-				<For each={messages()}>{m => <Message data={m} />}</For>
+				<For each={props.messages}>{m => <Message data={m} />}</For>
 			</div>
 			<form
 				class="w-full p-4 flex gap-4"
 				onSubmit={e => {
 					e.preventDefault();
 					if (currentMessage() === "") return;
-					setMessages(v => [
-						...v,
-						{ author: props.name, content: currentMessage() }
-					]);
+					client.send(
+						JSON.stringify({
+							author: props.name,
+							content: currentMessage()
+						} as MessageData)
+					);
 					setCurrentMessage("");
 				}}
 			>

@@ -7,8 +7,9 @@ interface Props {
 }
 
 const Message: Component<Props> = props => (
-	<div class="max-w-full break-all">
-		{props.data.author}: {props.data.content}
+	<div class="max-w-full mb-4 break-all">
+		<span class="mr-2 px-2 py-1 rounded bg-gray-800">{props.data.author}</span>
+		{props.data.content}
 	</div>
 );
 
