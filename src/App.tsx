@@ -7,6 +7,8 @@ import Sidebar from "./components/Sidebar";
 const App: Component = () => {
 	const [name, setName] = createSignal("");
 	const [entered, setEntered] = createSignal(false);
+	const [spaces, setSpaces] = createSignal<string[]>([]);
+	const [currentSpace, setCurrentSpace] = createSignal("core");
 
 	return (
 		<Show
@@ -16,8 +18,12 @@ const App: Component = () => {
 			}
 		>
 			<div class="h-full flex">
-				<Sidebar />
-				<Chat name={name()} />
+				<Sidebar
+					spaces={spaces()}
+					setSpaces={setSpaces}
+					setCurrentSpace={setCurrentSpace}
+				/>
+				<Chat name={name()} currentSpace={currentSpace()} />
 			</div>
 		</Show>
 	);
