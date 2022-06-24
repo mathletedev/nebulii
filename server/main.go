@@ -18,8 +18,7 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
-	hub := newHub()
-	go hub.run()
+	hub := NewHub()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if strings.Contains(r.Header.Values("Connection")[0], "Upgrade") {

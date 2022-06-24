@@ -34,6 +34,7 @@ const Chat: Component<Props> = props => {
 					if (currentMessage() === "") return;
 					client.send(
 						JSON.stringify({
+							action: "send-message",
 							author: props.name,
 							content: currentMessage()
 						} as MessageData)

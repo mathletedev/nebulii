@@ -12,19 +12,34 @@ const App: Component = () => {
 	const [messages, setMessages] = createSignal<MessageData[]>([]);
 	const [spaces, setSpaces] = createSignal<string[]>([]);
 	const [currentSpace, setCurrentSpace] = createSignal("core");
-	const [onlineCount, setOnlineCount] = createSignal(0);
+	const [serverOnlineCount, setServerOnlineCount] = createSignal(0);
+	const [roomOnlineCount, setRoomOnlineCount] = createSignal(0);
 
 	client.onmessage = e => {
-		if (Number.isNaN(Number(e.data)))
-			setMessages(v => [
-				...v,
-				...e.data.split("\n").map((m: string) => JSON.parse(m))
-			]);
-		else setOnlineCount(parseInt(e.data));
+		const message = JSON.parse(e.data) as MessageData;
+		switch (message.action) {
+			case "send-message":
+				setMessages(v => [...v, message]);
+				break;
+			case "server-update-count":
+				setServerOnlineCount(parseInt(message.content));
+				break;
+			case "room-update-count":
+				setRoomOnlineCount(parseInt(message.content));
+				break;
+			default:
+				break;
+		}
 	};
 
 	createEffect(() => {
-		currentSpace();
+		client.send(
+			JSON.stringify({
+				action: "join-room",
+				author: "",
+				content: currentSpace()
+			} as MessageData)
+		);
 		setMessages([]);
 	});
 
@@ -41,7 +56,8 @@ const App: Component = () => {
 					setSpaces={setSpaces}
 					currentSpace={currentSpace()}
 					setCurrentSpace={setCurrentSpace}
-					onlineCount={onlineCount()}
+					serverOnlineCount={serverOnlineCount()}
+					roomOnlineCount={roomOnlineCount()}
 				/>
 				<Chat
 					name={name()}

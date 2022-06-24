@@ -5,7 +5,8 @@ interface Props {
 	setSpaces: Setter<string[]>;
 	currentSpace: string;
 	setCurrentSpace: Setter<string>;
-	onlineCount: number;
+	serverOnlineCount: number;
+	roomOnlineCount: number;
 }
 
 const Sidebar: Component<Props> = props => {
@@ -30,13 +31,22 @@ const Sidebar: Component<Props> = props => {
 				<For each={props.spaces}>
 					{s => (
 						<div
-							class={`mx-4 mb-4 rounded-lg ${
+							class={`h-10 mx-4 mb-4 rounded-lg ${
 								s === props.currentSpace ? "bg-indigo-900" : "bg-gray-800"
 							}`}
 						>
 							<button
+								class="absolute w-10 h-10 rounded-r-none"
+								onClick={() => {
+									props.setSpaces(v => v.filter(e => e !== s));
+									if (s === props.currentSpace) props.setCurrentSpace("core");
+								}}
+							>
+								❌
+							</button>
+							<button
 								onClick={() => props.setCurrentSpace(s)}
-								class="w-full p-2"
+								class="w-full h-full"
 							>
 								{s}
 							</button>
@@ -65,8 +75,24 @@ const Sidebar: Component<Props> = props => {
 					<button class="w-full">enter</button>
 				</div>
 			</form>
-			<div class="m-4 rounded-lg bg-cyan-900">
-				<div class="p-2 text-center">{props.onlineCount} online</div>
+			<div class="mx-4 mt-4 rounded-t-lg text-center bg-gray-800">online</div>
+			<div class="h-8 mx-4 mb-4 flex">
+				<div class="w-1/2 rounded-bl-lg bg-blue-900">
+					<div class="absolute w-8 h-8 flex">
+						<div class="m-auto">🌎</div>
+					</div>
+					<div class="h-full flex">
+						<div class="m-auto">{props.serverOnlineCount}</div>
+					</div>
+				</div>
+				<div class="w-1/2 rounded-br-lg text-center bg-sky-900">
+					<div class="absolute w-8 h-8 flex">
+						<div class="m-auto">🏠</div>
+					</div>
+					<div class="h-full flex">
+						<div class="m-auto">{props.roomOnlineCount}</div>
+					</div>
+				</div>
 			</div>
 		</aside>
 	);

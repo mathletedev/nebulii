@@ -1,50 +1,70 @@
 package main
 
-import "strconv"
+import (
+	"log"
+	"strconv"
+)
 
 type Hub struct {
 	clients    map[*Client]bool
-	broadcast  chan []byte
 	register   chan *Client
 	unregister chan *Client
+	rooms      map[*Room]bool
 }
 
-func newHub() *Hub {
+func NewHub() *Hub {
 	return &Hub{
-		broadcast:  make(chan []byte),
-		register:   make(chan *Client),
-		unregister: make(chan *Client),
-		clients:    make(map[*Client]bool),
+		clients: make(map[*Client]bool),
+		rooms:   make(map[*Room]bool),
 	}
 }
 
-func (h *Hub) count() {
-	for client := range h.clients {
-		client.send <- []byte(strconv.Itoa(len(h.clients)))
-	}
-}
-
-func (h *Hub) run() {
-	for {
-		select {
-		case client := <-h.register:
-			h.clients[client] = true
-			h.count()
-		case client := <-h.unregister:
-			if _, ok := h.clients[client]; ok {
-				delete(h.clients, client)
-				close(client.send)
-			}
-			h.count()
-		case message := <-h.broadcast:
-			for client := range h.clients {
-				select {
-				case client.send <- message:
-				default:
-					close(client.send)
-					delete(h.clients, client)
-				}
-			}
+func (hub *Hub) findRoom(id string) *Room {
+	var res *Room
+	for room := range hub.rooms {
+		if room.id == id {
+			res = room
+			break
 		}
 	}
+
+	return res
+}
+
+func (hub *Hub) createRoom(id string) *Room {
+	room := NewRoom(id)
+	go room.run()
+	hub.rooms[room] = true
+
+	return room
+}
+
+func (hub *Hub) deleteRoom(id string) {
+	room := hub.findRoom(id)
+	if _, ok := hub.rooms[room]; ok {
+		delete(hub.rooms, room)
+	}
+}
+
+func (hub *Hub) registerClient(client *Client) {
+	hub.clients[client] = true
+	log.Println(hub.clients)
+	hub.updateCount()
+}
+
+func (hub *Hub) unregisterClient(client *Client) {
+	if _, ok := hub.clients[client]; ok {
+		delete(hub.clients, client)
+	}
+	hub.updateCount()
+}
+
+func (hub *Hub) broadcastToClients(message []byte) {
+	for client := range hub.clients {
+		client.send <- message
+	}
+}
+
+func (hub *Hub) updateCount() {
+	hub.broadcastToClients(NewMessage(ServerUpdateCountAction, "", strconv.Itoa(len(hub.clients))).encode())
 }
