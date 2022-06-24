@@ -14,8 +14,8 @@ const Sidebar: Component<Props> = props => {
 	return (
 		<aside class="w-64 h-full flex flex-col border-r-4 border-gray-800">
 			<div
-				class={`m-4 rounded-lg bg-${
-					props.currentSpace === "core" ? "indigo-900" : "gray-800"
+				class={`m-4 rounded-lg ${
+					props.currentSpace === "core" ? "bg-indigo-900" : "bg-gray-800"
 				}`}
 			>
 				<button
@@ -30,8 +30,8 @@ const Sidebar: Component<Props> = props => {
 				<For each={props.spaces}>
 					{s => (
 						<div
-							class={`mx-4 mb-4 rounded-lg bg-${
-								s === props.currentSpace ? "indigo-900" : "gray-800"
+							class={`mx-4 mb-4 rounded-lg ${
+								s === props.currentSpace ? "bg-indigo-900" : "bg-gray-800"
 							}`}
 						>
 							<button

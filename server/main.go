@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -22,7 +24,10 @@ func main() {
 		serve(hub, w, r)
 	})
 
-	err := http.ListenAndServe(":8080", nil)
+	port := os.Getenv("PORT")
+	log.Println("🚀 server started on port " + port)
+
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal("server: ", err)
 	}

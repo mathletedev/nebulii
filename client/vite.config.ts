@@ -6,5 +6,6 @@ export default defineConfig({
 	build: {
 		target: "esnext",
 		polyfillDynamicImport: false
-	}
+	},
+	base: "https://mathletedev.github.io/nebulii/"
 });

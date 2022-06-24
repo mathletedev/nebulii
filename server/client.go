@@ -99,8 +99,6 @@ func serve(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
 	client.hub.register <- client
 
-	log.Println(len(client.hub.clients))
-
 	go client.readPump()
 	go client.writePump()
 }
