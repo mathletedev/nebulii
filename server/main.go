@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -21,7 +22,12 @@ func main() {
 	go hub.run()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		serve(hub, w, r)
+		if strings.Contains(r.Header.Values("Connection")[0], "Upgrade") {
+			serve(hub, w, r)
+			return
+		}
+
+		http.Redirect(w, r, "https://mathletedev.github.io/nebulii", http.StatusSeeOther)
 	})
 
 	port := os.Getenv("PORT")
