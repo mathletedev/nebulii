@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"strconv"
 )
 
@@ -48,7 +47,6 @@ func (hub *Hub) deleteRoom(id string) {
 
 func (hub *Hub) registerClient(client *Client) {
 	hub.clients[client] = true
-	log.Println(hub.clients)
 	hub.updateCount()
 }
 
