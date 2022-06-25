@@ -1,3 +1,4 @@
+import { HiSolidPaperAirplane } from "solid-icons/hi";
 import { Component, createSignal, For } from "solid-js";
 
 import client from "../lib/client";
@@ -52,7 +53,9 @@ const Chat: Component<Props> = props => {
 					placeholder="say something..."
 					ref={input}
 				/>
-				<button class="w-10 h-10 bg-blue-900">✈️</button>
+				<button class="w-10 h-10 flex bg-blue-900">
+					<HiSolidPaperAirplane class="m-auto" />
+				</button>
 			</form>
 		</div>
 	);

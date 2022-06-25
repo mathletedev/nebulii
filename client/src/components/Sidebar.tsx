@@ -1,3 +1,4 @@
+import { HiSolidGlobeAlt, HiSolidHome } from "solid-icons/hi";
 import { Component, createSignal, For, Setter } from "solid-js";
 
 interface Props {
@@ -13,7 +14,7 @@ const Sidebar: Component<Props> = props => {
 	const [newSpace, setNewSpace] = createSignal("");
 
 	return (
-		<aside class="w-64 h-full flex flex-col border-r-4 border-gray-800">
+		<aside class="absolute md:static w-80 h-full flex flex-col border-r-4 border-gray-800 bg-gray-900">
 			<div
 				class={`m-4 rounded-lg ${
 					props.currentSpace === "core" ? "bg-indigo-900" : "bg-gray-800"
@@ -64,13 +65,15 @@ const Sidebar: Component<Props> = props => {
 					setNewSpace("");
 				}}
 			>
-				<input
-					class="h-10 mx-4 mt-4 p-3 rounded-b-none text-center"
-					value={newSpace()}
-					onInput={e => setNewSpace(e.currentTarget.value)}
-					placeholder="space id"
-					maxLength={8}
-				/>
+				<div class="mx-4">
+					<input
+						class="w-full h-10 mt-4 p-3 rounded-b-none text-center"
+						value={newSpace()}
+						onInput={e => setNewSpace(e.currentTarget.value)}
+						placeholder="space id"
+						maxLength={8}
+					/>
+				</div>
 				<div class="mx-4 rounded-b-lg bg-emerald-800">
 					<button class="w-full">enter</button>
 				</div>
@@ -79,7 +82,7 @@ const Sidebar: Component<Props> = props => {
 			<div class="h-8 mx-4 mb-4 flex">
 				<div class="w-1/2 rounded-bl-lg bg-blue-900">
 					<div class="absolute w-8 h-8 flex">
-						<div class="m-auto">🌎</div>
+						<HiSolidGlobeAlt class="m-auto" />
 					</div>
 					<div class="h-full flex">
 						<div class="m-auto">{props.serverOnlineCount}</div>
@@ -87,7 +90,7 @@ const Sidebar: Component<Props> = props => {
 				</div>
 				<div class="w-1/2 rounded-br-lg text-center bg-sky-900">
 					<div class="absolute w-8 h-8 flex">
-						<div class="m-auto">🏠</div>
+						<HiSolidHome class="m-auto" />
 					</div>
 					<div class="h-full flex">
 						<div class="m-auto">{props.roomOnlineCount}</div>

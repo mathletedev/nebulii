@@ -8,6 +8,7 @@
 		"deploy": "gh-pages -d dist"
 	},
 	"dependencies": {
+		"solid-icons": "^0.4.13",
 		"solid-js": "^1.4.2"
 	},
 	"devDependencies": {
