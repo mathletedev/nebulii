@@ -79,7 +79,7 @@ const App: Component = () => {
 				<Show when={!md()}>
 					<button
 						class={`absolute ${
-							expanded() ? "left-80" : "left-0"
+							expanded() ? "left-64" : "left-0"
 						} top-0 w-12 h-12 flex rounded-l-none rounded-t-none border-r-4 border-b-4 border-gray-800 bg-blue-900`}
 						onClick={() => setExpanded(v => !v)}
 					>

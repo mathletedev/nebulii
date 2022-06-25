@@ -47,7 +47,7 @@ const Chat: Component<Props> = props => {
 					<div class="m-auto">{props.name}</div>
 				</div>
 				<input
-					class="h-10 p-3 flex-grow"
+					class="h-10 min-w-0 p-3 flex-grow"
 					value={currentMessage()}
 					onInput={e => setCurrentMessage(e.currentTarget.value)}
 					placeholder="say something..."

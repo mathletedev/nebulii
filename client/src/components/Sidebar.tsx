@@ -14,7 +14,7 @@ const Sidebar: Component<Props> = props => {
 	const [newSpace, setNewSpace] = createSignal("");
 
 	return (
-		<aside class="absolute md:static w-80 h-full flex flex-col border-r-4 border-gray-800 bg-gray-900">
+		<aside class="absolute md:static w-64 md:w-80 h-full flex flex-col border-r-4 border-gray-800 bg-gray-900">
 			<div
 				class={`m-4 rounded-lg ${
 					props.currentSpace === "core" ? "bg-indigo-900" : "bg-gray-800"
