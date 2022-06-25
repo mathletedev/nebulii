@@ -1,4 +1,4 @@
-import { HiSolidGlobeAlt, HiSolidHome } from "solid-icons/hi";
+import { HiSolidGlobeAlt, HiSolidHome, HiSolidX } from "solid-icons/hi";
 import { Component, createSignal, For, Setter } from "solid-js";
 
 interface Props {
@@ -37,13 +37,13 @@ const Sidebar: Component<Props> = props => {
 							}`}
 						>
 							<button
-								class="absolute w-10 h-10 rounded-r-none"
+								class="absolute w-10 h-10 flex rounded-r-none"
 								onClick={() => {
 									props.setSpaces(v => v.filter(e => e !== s));
 									if (s === props.currentSpace) props.setCurrentSpace("core");
 								}}
 							>
-								❌
+								<HiSolidX class="m-auto" />
 							</button>
 							<button
 								onClick={() => props.setCurrentSpace(s)}
